@@ -1,3 +1,14 @@
+import * as express from "express";
+import {Request,Response} from "express";
+
+
+export interface icrud{
+    create:(req:Request,resp:Response)=>(void),
+    read:(req:Request,resp:Response)=>(void),
+    update:(req:Request,resp:Response)=>(void),
+    delete:(req:Request,resp:Response)=>(void)    
+}
+
 export interface iplace {
     id:number;
     name:number;
