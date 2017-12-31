@@ -1,6 +1,14 @@
 "use strict";
 exports.__esModule = true;
 var body_parser_1 = require("body-parser");
+exports.returnPlace = function (placecontroller, placeId) {
+    var placename = '';
+    placecontroller.getfactory().forEach(function (place) {
+        if (place.id == placeId)
+            placename = place.name;
+    });
+    return placename;
+};
 var SearchController = /** @class */ (function () {
     function SearchController(app, endpoint, peoplecontroller, placecontroller) {
         var _this = this;
@@ -14,8 +22,16 @@ var SearchController = /** @class */ (function () {
             console.log('Request Params=>', req.query.name);
             var name = req.query.name;
             if (name != undefined) {
-                var peoples = _this.peoplecontroller.getfactory();
-                resp.send(peoples.filter(function (people) { return people.name == name; }));
+                var peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name == name; });
+                var results = peoples.map(function (people) {
+                    return {
+                        id: people.id,
+                        name: people.name,
+                        gender: people.gender,
+                        birthplace: exports.returnPlace(_this.placecontroller, people.place_id)
+                    };
+                });
+                resp.send(results);
             }
         };
         this.update = function () {

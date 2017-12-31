@@ -3,10 +3,20 @@ import { Application,Request,Response } from "express";
 import {json} from "body-parser";
 
 
-import {icrud, ipeople} from '../api';
+import {icrud, ipeople,iresults,gendertype} from '../api';
 import {PeopleController}  from '../controllers/people-controller';
 import {PlaceController} from '../controllers/place-controller';
 
+export const returnPlace=function(placecontroller:PlaceController,placeId:number):string{
+    let placename:string='';
+
+    placecontroller.getfactory().forEach(place => {
+        if (place.id==placeId)
+        placename=place.name;
+    });
+
+    return placename;
+}
 
 
 export class SearchController implements icrud {
@@ -22,12 +32,19 @@ export class SearchController implements icrud {
     read=(req:Request,resp:Response)=>{
 
         console.log('Request Params=>',req.query.name);
-        const name:string|undefined=req.query.name;
-    
+        const name:string|undefined=req.query.name;  
 
         if (name!=undefined){
-            const peoples:ipeople[]=this.peoplecontroller.getfactory();
-            resp.send(peoples.filter(people=>people.name==name));
+            const peoples:ipeople[]=this.peoplecontroller.getfactory().filter(people=>people.name==name);
+            const results:iresults[]=peoples.map(people=>{                                
+                return {
+                    id:people.id,
+                    name:people.name,
+                    gender:people.gender,
+                    birthplace:returnPlace(this.placecontroller,people.place_id)                
+                }
+            });
+            resp.send(results);
         }
     }
     update=()=>{
