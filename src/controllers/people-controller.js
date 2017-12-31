@@ -1,20 +1,13 @@
 "use strict";
 exports.__esModule = true;
 var PeopleController = /** @class */ (function () {
-    function PeopleController(app, endpoint) {
-        this.app = app;
-        this.endpoint = endpoint;
-        this.create = function (req, resp) {
-        };
-        this.read = function (req, resp) {
-            resp.send('get api');
-        };
-        this.update = function (req, resp) {
-        };
-        this["delete"] = function (req, resp) {
-        };
-        app.get(endpoint, this.read);
+    function PeopleController(factory) {
+        this.factory = factory;
+        console.log('No of Peoples=>', factory.length);
     }
+    PeopleController.prototype.getfactory = function () {
+        return this.factory;
+    };
     return PeopleController;
 }());
 exports.PeopleController = PeopleController;

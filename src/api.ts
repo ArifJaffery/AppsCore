@@ -2,6 +2,11 @@ import * as express from "express";
 import {Request,Response} from "express";
 
 
+export interface imockdata{
+    places:iplace[],
+    people:ipeople[]
+}
+
 export interface icrud{
     create:(req:Request,resp:Response)=>(void),
     read:(req:Request,resp:Response)=>(void),
@@ -16,10 +21,12 @@ export interface iplace {
 
 export interface ipeople{
     id:number;
-    name:number;
+    name:string;
     gender:string;
     father_id:number;
     mother_id:number;
     place_id:number;
     level:number;
 }
+
+
