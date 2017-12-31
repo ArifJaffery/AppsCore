@@ -29,6 +29,7 @@ export interface ipeople{
     level:number;
 }
 
+
 export type gendertype='Male' | 'Female';
 
 export interface iresults{

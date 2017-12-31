@@ -16,7 +16,8 @@ var main = /** @class */ (function () {
         var placefactory = [];
         placefactory = mockdata.places;
         var placecontroller = new place_controller_1.PlaceController(placefactory);
-        new search_controller_1.SearchController(this.app, '/search?:name', peoplecontroller, placecontroller);
+        //new SearchController(this.app,'/search?:name',peoplecontroller,placecontroller);
+        new search_controller_1.SearchController(this.app, '/search', peoplecontroller, placecontroller);
         this.app.listen(this.port, function (error) {
             if (error) {
                 console.log('Ecounter problem =>', error);

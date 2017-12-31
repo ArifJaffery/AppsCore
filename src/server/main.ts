@@ -22,8 +22,8 @@ export class main{
         placefactory=mockdata.places;
         const placecontroller=new PlaceController(placefactory);
 
-        new SearchController(this.app,'/search?:name',peoplecontroller,placecontroller);
-
+        //new SearchController(this.app,'/search?:name',peoplecontroller,placecontroller);
+        new SearchController(this.app,'/search',peoplecontroller,placecontroller);
         this.app.listen(this.port,(error:any)=>{
             if (error){
                 console.log('Ecounter problem =>',error);
