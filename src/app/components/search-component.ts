@@ -59,7 +59,7 @@ export class  Search extends FormGroup implements OnInit{
            formControl2.setValue(formControl1.value);
     }
 
-    typeClickFn=(formControl:FormControl,value:string)=>{
+    directionClickFn=(formControl:FormControl,value:string)=>{
         formControl.setValue(value);
         
     }
@@ -67,5 +67,21 @@ export class  Search extends FormGroup implements OnInit{
     getdirectionFn=(value:string):boolean=>{
         return this.get('direction').value ==value;
     }
+
+    searchtypetoggleFn=()=>{
+        if (this.get('type').value=='Simple')
+            this.get('type').setValue('Advance');
+        else
+            this.get('type').setValue('Simple');       
+    }
+
+    searchtitleFn=(type:string):string=>{
+        if (type=='Simple')
+            return 'Advance';
+        else
+            return 'Simple';       
+    
+    }
+
 
 }
