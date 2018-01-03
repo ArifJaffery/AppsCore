@@ -1,3 +1,4 @@
+
 <div [formGroup]="this">
     <div class="jumbotron text-center">
         <h2>PAGE ONE: Home page / Simple search page</h2>
@@ -10,7 +11,7 @@
             <div class="col-sm-5">
                 <input type="text" class="form-control" formControlName="name">
             </div>
-            <div class="col-sm-4"><button type="button" class="btn btn-primary"  (click)="searchFn()" >Search</button></div>
+            <div class="col-sm-4"><button type="button" class="btn btn-primary"  (click)="searchFn('Simple')" >Search</button></div>
         </div>
 
         <div class="row">
@@ -27,6 +28,19 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-5">
+                <div class="radio">                
+                    <span>Direction</span>                      
+                    <label><input  [checked]="getdirectionFn('ancestors')" (click)="typeClickFn(this.get('direction'),'ancestors')" type="radio" value="ancestors" formControlName="direction" >Ancestors</label>
+                    <label><input  [checked]="getdirectionFn('descendents')" (click)="typeClickFn(this.get('direction'),'descendents')"  type="radio" value="descendents" formControlName="direction" >Descendents</label>                 
+       
+                </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
 
         <div class="container">
             <div class="row">
@@ -51,7 +65,7 @@
                                 <tr>
                                     <td>{{result.get('id').value}}</td>
                                     <td>{{result.get('name').value}}</td>
-                                    <td>{{result.get('gender').value}}</td>
+                                    <td>{{getgender(result.get('gender').value)}}</td>
                                     <td>{{result.get('birthplace').value}}</td>       
                                 </tr>
                             </ng-container>

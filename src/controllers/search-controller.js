@@ -21,11 +21,11 @@ var SearchController = /** @class */ (function () {
             var searchparam = req.body;
             var peoples = [];
             if (searchparam.male)
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'M'; }).slice(0, _this.size);
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase()) != -1 && people.gender == 'M'; }).slice(0, _this.size);
             else if (searchparam.female)
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'F'; }).slice(0, _this.size);
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase()) != -1 && people.gender == 'F'; }).slice(0, _this.size);
             else
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1; }).slice(0, _this.size);
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase()) != -1; }).slice(0, _this.size);
             var results = peoples.map(function (people) {
                 return {
                     id: people.id,

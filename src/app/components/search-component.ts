@@ -1,11 +1,11 @@
 import {Component,OnInit} from '@angular/core';
 import {FormControl,FormBuilder,FormGroup,FormArray} from '@angular/forms';
-import {isearch,iresults,gendertype}  from '../../api';
+import {isearch,iresults,gendertype,searchtype}  from '../../api';
 import  {SearchService}  from '../services/search-service';
 
 export const getformArray=function(fb:FormBuilder,results:iresults[]):FormArray{   
     let formArray:FormArray=fb.array([]);
-    results.map(result=>{
+    results.map(result=>{        
         formArray.push(fb.group(result));
     });
     return formArray;
@@ -20,10 +20,12 @@ export class  Search extends FormGroup implements OnInit{
 
     constructor(private fb:FormBuilder,private searchservice:SearchService){
         super({
+            type:new FormControl('Simple'),
             name:new FormControl(''),
             male:new FormControl(false),
             female:new FormControl(false),
-            results:fb.array([])
+            results:fb.array([]),
+            direction:new FormControl('ancestors')
         });
     }    
 
@@ -31,17 +33,19 @@ export class  Search extends FormGroup implements OnInit{
 
     }
 
-    getgender(){
-        const formValue:isearch=this.value;
-        
+    getgender=(gender:string):string=>{
+        return gender == 'M'? 'Male': gender=='F'? 'Female':'';
     }
-    searchFn(){
-        console.log('I am called');
+
+    searchFn(type:searchtype){
+        console.log('I am called',this.value);
         this.searchservice.search({
+            "type":type,            
             "name":this.get('name').value,
             "male":this.get('male').value,
             "female":this.get('female').value,
-            "results":[]        
+            "results":[],
+            "direction" : this.get('direction').value
         }).then((response)=>{
             const data:iresults[]=response as iresults[];                     
             this.setControl('results',getformArray(this.fb,data));            
@@ -55,5 +59,13 @@ export class  Search extends FormGroup implements OnInit{
            formControl2.setValue(formControl1.value);
     }
 
+    typeClickFn=(formControl:FormControl,value:string)=>{
+        formControl.setValue(value);
+        
+    }
+
+    getdirectionFn=(value:string):boolean=>{
+        return this.get('direction').value ==value;
+    }
 
 }

@@ -30,8 +30,9 @@ export interface ipeople{
 }
 
 
-export type gendertype= 'M' | 'F' ;
-
+export type gendertype= 'M' | 'F' | '' ;
+export type searchtype='Simple' | 'Advance';
+export type searchdirection='ancestors' | 'descendents' | '';
 
 export interface iresults{
     id:number;
@@ -41,9 +42,11 @@ export interface iresults{
 }
 
 export interface isearch {    
+    type:searchtype;
     name:string;
     male:boolean;
     female:boolean;
+    direction:searchdirection;
     results:iresults[]
 }
 

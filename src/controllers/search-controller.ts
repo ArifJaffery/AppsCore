@@ -32,11 +32,11 @@ export class SearchController implements icrud {
         let peoples:ipeople[]=[];
 
         if (searchparam.male)
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='M' ).slice(0,this.size);        
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase() )!=-1 && people.gender=='M' ).slice(0,this.size);        
         else if (searchparam.female)
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='F' ).slice(0,this.size);                
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase())!=-1 && people.gender=='F' ).slice(0,this.size);                
         else
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 ).slice(0,this.size);
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.toLocaleLowerCase().search(searchparam.name.toLocaleLowerCase())!=-1 ).slice(0,this.size);
 
         const results:iresults[]=peoples.map(people=>{                              
             return {
