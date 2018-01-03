@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import {Search} from './components/search-component';
+import {SearchService}  from './services/search-service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import {Search} from './components/search-component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

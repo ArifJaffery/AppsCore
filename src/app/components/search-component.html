@@ -1,59 +1,64 @@
-
-<div class="jumbotron text-center">
-    <h2>PAGE ONE: Home page / Simple search page</h2>
-    <p>Our UX designer has come up wit  h the mock-up of this page:</p> 
-</div> 
-  
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-5"><input type="text" class="form-control" id="usr"></div>
-        <div class="col-sm-4"><button type="button" class="btn btn-primary">Search</button></div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <div class="checkbox">                
-                <span> Gender</span>                      
-                <label><input type="checkbox" value="Male">Male</label>
-                <label><input type="checkbox" value="Female">Female</label>                    
-            </div>
-        </div>
-        <div class="col-sm-4">
-                <button type="button" class="btn btn-link">Advance Search</button>
-        </div>
-    </div>
-
-
+<div [formGroup]="this">
+    <div class="jumbotron text-center">
+        <h2>PAGE ONE: Home page / Simple search page</h2>
+        <p>Our UX designer has come up wit  h the mock-up of this page:</p> 
+    </div> 
+    
     <div class="container">
         <div class="row">
-                <div class="col-sm-11">
-                    <span>Results:</span> 
-                </div>           
-        </div> 
-    
-        <div class="table-responsive">          
-            
-            <table class="table table-bordered">
-                <thead>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="col-sm-4"><button type="button" class="btn btn-primary"  (click)="searchFn()" >Search</button></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="checkbox">                
+                    <span> Gender</span>                      
+                    <label><input type="checkbox" formControlName="male"  (click)="genderClickFn(this.get('male'),this.get('female'))" >Male</label>
+                    <label><input type="checkbox" formControlName="female" (click)="genderClickFn(this.get('female'),this.get('male'))"  >Female</label>                 
+                </div>
+            </div>
+            <div class="col-sm-4">
+                    <button type="button" class="btn btn-link">Advance Search</button>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-sm-11">
+                        <span>Results:</span> 
+                    </div>           
+            </div> 
         
-                    <tr style="background-color:greenyellow">
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>GENDER</th>
-                        <th>BIRTH PLACE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Anna</td>
-                        <td>Pitt</td>
-                        <td>35</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>        
-    </div>           
+            <div class="table-responsive">                              
+                <table class="table table-bordered">
+                    <thead>                
+                        <tr style="background-color:greenyellow">
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>GENDER</th>
+                            <th>BIRTH PLACE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container formArrayName="results">
+                            <ng-container *ngFor="let result of this.get('results').controls;let i=index" [formGroupName]="i">
+                                <tr>
+                                    <td>{{result.get('id').value}}</td>
+                                    <td>{{result.get('name').value}}</td>
+                                    <td>{{result.get('gender').value}}</td>
+                                    <td>{{result.get('birthplace').value}}</td>       
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>        
+        </div>           
+    </div>
 </div>

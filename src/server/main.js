@@ -7,7 +7,7 @@ var search_controller_1 = require("../controllers/search-controller");
 var main = /** @class */ (function () {
     function main() {
         var _this = this;
-        this.port = 5998;
+        this.port = 5712;
         this.app = express();
         var mockdata = require('../server/data_small.json');
         var peoplefactory = [];

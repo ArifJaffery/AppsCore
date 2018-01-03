@@ -30,7 +30,8 @@ export interface ipeople{
 }
 
 
-export type gendertype='Male' | 'Female';
+export type gendertype= 'M' | 'F' ;
+
 
 export interface iresults{
     id:number;
@@ -41,7 +42,8 @@ export interface iresults{
 
 export interface isearch {    
     name:string;
-    gender:gendertype;
+    male:boolean;
+    female:boolean;
     results:iresults[]
 }
 

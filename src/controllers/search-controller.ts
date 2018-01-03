@@ -2,7 +2,6 @@ import * as express from "express";
 import { Application,Request,Response } from "express";
 import {json} from "body-parser";
 
-
 import {icrud, ipeople,iresults,gendertype, isearch} from '../api';
 import {PeopleController}  from '../controllers/people-controller';
 import {PlaceController} from '../controllers/place-controller';
@@ -26,10 +25,20 @@ export class SearchController implements icrud {
     }
 
     create=(req:Request,resp:Response)=>{
-        console.log(req.body);
         const searchparam:isearch=req.body as isearch;
-        const peoples:ipeople[]=this.peoplecontroller.getfactory().filter(people=>people.name==searchparam.name);
-        const results:iresults[]=peoples.map(people=>{                                
+        //console.log(searchparam);
+        
+
+        let peoples:ipeople[]=[];
+
+        if (searchparam.male)
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='M' );        
+        else if (searchparam.female)
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='F' );                
+        else
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 );
+
+        const results:iresults[]=peoples.map(people=>{                              
             return {
                 id:people.id,
                 name:people.name,
@@ -38,7 +47,6 @@ export class SearchController implements icrud {
             }
         });
         resp.send(results);            
-
     }
 
     read=(req:Request,resp:Response)=>{

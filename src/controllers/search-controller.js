@@ -17,9 +17,15 @@ var SearchController = /** @class */ (function () {
         this.peoplecontroller = peoplecontroller;
         this.placecontroller = placecontroller;
         this.create = function (req, resp) {
-            console.log(req.body);
             var searchparam = req.body;
-            var peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name == searchparam.name; });
+            //console.log(searchparam);
+            var peoples = [];
+            if (searchparam.male)
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'M'; });
+            else if (searchparam.female)
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'F'; });
+            else
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1; });
             var results = peoples.map(function (people) {
                 return {
                     id: people.id,
@@ -31,29 +37,11 @@ var SearchController = /** @class */ (function () {
             resp.send(results);
         };
         this.read = function (req, resp) {
-            /*
-                    console.log('Request Params=>',req.query.name);
-                    const name:string|undefined=req.query.name;
-            
-                    if (name!=undefined){
-                        
-                        const peoples:ipeople[]=this.peoplecontroller.getfactory().filter(people=>people.name==name);
-                        const results:iresults[]=peoples.map(people=>{
-                            return {
-                                id:people.id,
-                                name:people.name,
-                                gender:people.gender,
-                                birthplace:returnPlace(this.placecontroller,people.place_id)
-                            }
-                        });
-                        resp.send(results);
-                    }*/
         };
         this.update = function () {
         };
         this["delete"] = function () {
         };
-        //    app.get(this.endpoint,json(),this.read);
         app.post(this.endpoint, body_parser_1.json(), this.create);
     }
     return SearchController;

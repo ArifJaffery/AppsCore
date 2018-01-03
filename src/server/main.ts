@@ -9,7 +9,7 @@ import {icrud,ipeople,iplace,imockdata} from '../api';
 
 export class main{
     app:Application;
-    port=5998;
+    port=5712;
     constructor(){
         this.app=express();                       
         const mockdata=require('../server/data_small.json') as imockdata;
