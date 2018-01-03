@@ -20,23 +20,23 @@ export const returnPlace=function(placecontroller:PlaceController,placeId:number
 
 export class SearchController implements icrud {
 
+    size=10;
+
     constructor(private app:Application,private endpoint:string,private peoplecontroller:PeopleController,private placecontroller:PlaceController){
         app.post(this.endpoint,json(),this.create);
     }
 
     create=(req:Request,resp:Response)=>{
         const searchparam:isearch=req.body as isearch;
-        //console.log(searchparam);
-        
 
         let peoples:ipeople[]=[];
 
         if (searchparam.male)
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='M' );        
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='M' ).slice(0,this.size);        
         else if (searchparam.female)
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='F' );                
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 && people.gender=='F' ).slice(0,this.size);                
         else
-            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 );
+            peoples=this.peoplecontroller.getfactory().filter(people=>people.name.search(searchparam.name)!=-1 ).slice(0,this.size);
 
         const results:iresults[]=peoples.map(people=>{                              
             return {

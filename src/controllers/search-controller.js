@@ -16,16 +16,16 @@ var SearchController = /** @class */ (function () {
         this.endpoint = endpoint;
         this.peoplecontroller = peoplecontroller;
         this.placecontroller = placecontroller;
+        this.size = 10;
         this.create = function (req, resp) {
             var searchparam = req.body;
-            //console.log(searchparam);
             var peoples = [];
             if (searchparam.male)
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'M'; });
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'M'; }).slice(0, _this.size);
             else if (searchparam.female)
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'F'; });
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1 && people.gender == 'F'; }).slice(0, _this.size);
             else
-                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1; });
+                peoples = _this.peoplecontroller.getfactory().filter(function (people) { return people.name.search(searchparam.name) != -1; }).slice(0, _this.size);
             var results = peoples.map(function (people) {
                 return {
                     id: people.id,
