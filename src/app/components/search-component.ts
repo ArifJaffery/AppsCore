@@ -28,6 +28,7 @@ export class  Search extends FormGroup implements OnInit{
     }    
 
     ngOnInit(){
+
     }
 
     getgender(){
@@ -50,7 +51,8 @@ export class  Search extends FormGroup implements OnInit{
     }
 
     genderClickFn=(formControl1:FormControl,formControl2:FormControl)=>{
-        formControl2.setValue(formControl1.value);
+        if (!formControl1.value)
+           formControl2.setValue(formControl1.value);
     }
 
 
