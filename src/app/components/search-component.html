@@ -1,8 +1,16 @@
 
 <div [formGroup]="this">
     <div class="jumbotron text-center">
-        <h2>PAGE ONE: Home page / Simple search page</h2>
-        <p>Our UX designer has come up wit  h the mock-up of this page:</p> 
+        <div *ngIf="this.get('type').value=='Simple'">
+            <h2>            
+                PAGE ONE: Home page / Simple search page
+            </h2>
+        </div>
+        <div *ngIf="this.get('type').value=='Advance'">
+            <h2>            
+                PAGE TWO: Advanced search page
+            </h2>
+        </div> 
     </div> 
     
     <div class="container">

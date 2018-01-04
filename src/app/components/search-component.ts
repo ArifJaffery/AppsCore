@@ -38,9 +38,9 @@ export class  Search extends FormGroup implements OnInit{
     }
 
     searchFn(type:searchtype){
-        console.log('I am called',this.value);
+
         this.searchservice.search({
-            "type":type,            
+            "type":this.get('type').value,            
             "name":this.get('name').value,
             "male":this.get('male').value,
             "female":this.get('female').value,
